@@ -6,6 +6,9 @@ import org.springframework.ldap.core.LdapTemplate;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @RestController
 public class TestController {
 
@@ -16,12 +19,14 @@ public class TestController {
 
     @GetMapping("/test")
     public String test() {
-        ldapTemplate.list("emp");
-//        ldapTemplate
-//                .search(
-//                        "ou=emp",
-//                        "cn=" + "alia",
-//                        (AttributesMapper<String>) attrs -> (String) attrs.get("cn").get());
+
+        ldapTemplate
+                .search(
+                        "ou=emp,dc=hnp,dc=local",
+                        "cn=" + "ldapuser",
+                        (AttributesMapper<String>) attrs -> (String) attrs.get("cn").get());
+
+
         return "test";
     }
 }
